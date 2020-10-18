@@ -50,8 +50,9 @@ def test(list,s,m,c):
         return
 
     for i in list:
-        [newS,valid]=judge(s,i,m,c) # judge needs the boat and the ope
-        #disallow to repeat the
+        [newS,valid]=judge(s,i,m,c) 
+        # judge needs the boat and the operation
+        # disallow to return s in route
         if(valid):
             if(route.count(newS)!=0):
                 continue
