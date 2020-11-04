@@ -56,8 +56,7 @@ def SplitPoint(c):
 def SplitPointInAllAttr(data):
     res=[0,0,0,0]
     l=list(data[:,4])
-    
-    print("Info at begining is:",Info(l))
+    #print("Info at begining is:",Info(l))
     c1=[]
     c2=[]
     c3=[]
@@ -115,7 +114,7 @@ class node:
     def doSplit(self):
         data=self.data
         if(isSameClass(data)):
-            self.attr="c"+str(data[0,4])[0]
+            self.attr="L"+str(data[0,4])[0]
             self.isPure=1
             return
         else:
@@ -152,27 +151,25 @@ class node:
             return ":"+str(self.point)
     def display(self):
         if(self.father==0):
-            res =  str(self.attr)+" : "+str(self.point)+" 根节点" +"--左子节点为"+str(self.lchild.attr)+self.lchild.displayDividePoint()+"--右子节点为"+str(self.rchild.attr)+self.rchild.displayDividePoint()
+            res =  str(self.attr)+" : "+str(self.point)+" 根节点"+"--样本数:"+str(len(self.data)) +"--左子节点为"+str(self.lchild.attr)+self.lchild.displayDividePoint()+"--右子节点为"+str(self.rchild.attr)+self.rchild.displayDividePoint()
         else:
             if(self.isPure==0):
-                res = str(self.attr)+" : "+str(self.point)+"--左子节点为"+str(self.lchild.attr)+self.lchild.displayDividePoint()+"--右子节点为"+str(self.rchild.attr)+self.rchild.displayDividePoint()+"----父节点为"+str(self.father.attr)+":"+str(self.father.point)
+                res = str(self.attr)+" : "+str(self.point)+"--样本数:"+str(len(self.data))+"--左子节点为"+str(self.lchild.attr)+self.lchild.displayDividePoint()+"--右子节点为"+str(self.rchild.attr)+self.rchild.displayDividePoint()+"----父节点为"+str(self.father.attr)+":"+str(self.father.point)
             else:
-                res = str(self.attr)+" : 纯净节点 "+"----父节点为"+str(self.father.attr)+":"+str(self.father.point)
+                res = str(self.attr)+" : 纯净节点 "+"--样本数:"+str(len(self.data))+"----父节点为"+str(self.father.attr)+":"+str(self.father.point)
         print(res)
         if(self.lchild!=0):
             self.lchild.display()
         if(self.rchild!=0):
             self.rchild.display()
 
+if __name__ == "__main__":
+    data=loadTrainData()
+    rootNode = node(data)
+    rootNode.doSplit()
+    rootNode.display()
 
-
-data=loadTrainData()
-print(data)
-rootNode = node(data)
-rootNode.doSplit()
-rootNode.display()
-
-testData=loadTestData()
-test(testData,rootNode)
+    testData=loadTestData()
+    test(testData,rootNode)
 
 
